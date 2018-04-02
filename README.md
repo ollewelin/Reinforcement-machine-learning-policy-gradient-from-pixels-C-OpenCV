@@ -7,3 +7,13 @@ https://www.youtube.com/watch?v=fO5CFOeZen8&t=43s
 dependencies: OpenCV
 Here is a greate install guide for OpenCV: 
 http://milq.github.io/install-opencv-ubuntu-debian/
+
+Tested on Linux Ubuntu
+
+Compile
+
+$make
+
+Run
+
+$./exe_main
