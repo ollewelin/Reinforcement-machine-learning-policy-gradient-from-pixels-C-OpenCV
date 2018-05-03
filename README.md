@@ -8,7 +8,7 @@ dependencies: OpenCV
 Here is a greate install guide for OpenCV: 
 http://milq.github.io/install-opencv-ubuntu-debian/
 
-Tested on Linux Ubuntu
+Tested on Linux Ubuntu OpenCV 3.1 (OpenCV 4.0 was colpiled with Error's must fix this)
 
 Compile
 
