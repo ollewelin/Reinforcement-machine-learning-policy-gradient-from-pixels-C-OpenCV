@@ -227,7 +227,7 @@ float random_f;
     gameObj1.flip_reward_sign =0;
     gameObj1.print_out_nodes = 0;
     float gamma = 0.97f;
-    gameObj1.enable_ball_swan =0;
+    gameObj1.enable_ball_swan =1;
     gameObj1.use_character =1;
     gameObj1.max_rewards = 5.0f;
     gameObj1.enabel_3_state = 0;

@@ -266,7 +266,7 @@ void pinball_game::init_game(void)
 {
     replay_count=0;
     use_character=0;
-    enable_ball_swan=0;///default no swan
+    enable_ball_swan=0;///default yes swan
     slow_motion=0;
     move_up=0;///Init down if there was no Agent action done.
     win_this_game=0;///Init
