@@ -27,9 +27,9 @@ then extract the file:
 pix2hid_weight.dat.tar.gz
 
 start program and enter 
-<N>
-<Y>
-<Y>
+N
+Y
+Y
 on the 3 comming question 
   
 (if you get 
