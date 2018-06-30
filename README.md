@@ -21,7 +21,7 @@ Run
 If you want to test my trained weights ~100000 training episodes
 combine the splited 8M files pix2hid_weight.parta* with this command
 
-`cat pix2hid_weight.parta* > pix2hid_weight.dat.tar.gz` 
+`$ cat pix2hid_weight.parta* > pix2hid_weight.dat.tar.gz` 
 
 then extract the file:
 `pix2hid_weight.dat.tar.gz`
