@@ -24,7 +24,7 @@ combine the splited 8M files pix2hid_weight.parta* with this command
 `cat pix2hid_weight.parta* > pix2hid_weight.dat.tar.gz` 
 
 then extract the file:
-pix2hid_weight.dat.tar.gz
+`pix2hid_weight.dat.tar.gz`
 
 start program and enter 
 N
