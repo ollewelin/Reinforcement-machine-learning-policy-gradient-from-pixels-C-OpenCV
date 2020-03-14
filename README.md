@@ -10,7 +10,7 @@ http://milq.github.io/install-opencv-ubuntu-debian/
 
 or
 
-`sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev`
+`$ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev`
 
 Tested on Linux Ubuntu OpenCV 3.1
 
