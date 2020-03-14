@@ -5,12 +5,14 @@ Youtube demo at:
 https://www.youtube.com/watch?v=fO5CFOeZen8&t=43s
 
 dependencies: OpenCV
+install cmake:
+`$ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev`
 Here is a greate install guide for OpenCV: 
 http://milq.github.io/install-opencv-ubuntu-debian/
+start Cmake-GUI 
+browse to OpenCV download foder 
 
-or
 
-`$ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev`
 
 Tested on Linux Ubuntu OpenCV 3.1
 
