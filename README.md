@@ -5,39 +5,10 @@ Youtube demo at:
 https://www.youtube.com/watch?v=fO5CFOeZen8&t=43s
 
 dependencies: OpenCV
-install cmake:
 
-`$ sudo apt-get install build-essential cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev`
-
-`sudo apt-get install libopencv-dev python3-opencv` 
-
-
-Here is a greate install guide for OpenCV: 
-http://milq.github.io/install-opencv-ubuntu-debian/
-
-start Cmake-GUI 
-browse to OpenCV download folder 
-
-`$ mkdir build`
-
-in openCV filder
-
-browse to OpenCV build folder in Cmake-GUI
-
-Click Configure buttom again
-turn red
-Click Configure buttom again
-turn white
-
-Click genertate buttom
-
-`$ sudo make install`
-
-in folder
-`$ build`
-
-
-
+`sudo apt update
+sudo apt install build-essential cmake git pkg-config libgtk-3-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev
+sudo apt install libjpeg-dev libpng-dev libtiff-dev gfortran openexr libatlas-base-dev python3-dev python3-numpy libtbb2 libtbb-dev libdc1394-22-dev`
 
 
 
