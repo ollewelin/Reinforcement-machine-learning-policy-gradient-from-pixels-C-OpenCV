@@ -5,9 +5,47 @@ Youtube demo at:
 https://www.youtube.com/watch?v=fO5CFOeZen8&t=43s
 
 dependencies: OpenCV
+To install OpenCV
+first install 
+cmake
+
+`$ sudo apt-get update`
+
+`$ wget https://github.com/Kitware/CMake/releases/download/v3.15.2/cmake-3.15.2.tar.gz`
+
+`$ tar -zxvf cmake-3.15.2.tar.gz`
+
+`$ cd cmake-3.15.2`
+
+`$ ./bootstrap`
+
+`$ make`
+
+`$ sudo make install`
+
+`$ cmake --version`
+
+Then Install OpenCV
+download:
+
+https://github.com/opencv/opencv
+
+unzip opencv-master.zip
+change directory to unziped folder
+
+`$ mkdir build`
+
+`$ cd build`
+
+`/build$ sudo cmake ..`
+
+`/build$ sudo make`
+
+`/build$ sudo make install`
 
 Tested on Linux Ubuntu OpenCV 3.1
-
+Change directory to this repo
+unzip then
 Compile
 
 `$ make`
