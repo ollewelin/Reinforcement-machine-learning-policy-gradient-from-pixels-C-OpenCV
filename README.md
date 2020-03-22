@@ -31,6 +31,7 @@ download:
 https://github.com/opencv/opencv
 
 unzip opencv-master.zip
+
 change directory to unziped folder
 
 `$ mkdir build`
@@ -44,9 +45,12 @@ change directory to unziped folder
 `/build$ sudo make install`
 
 Tested on Linux Ubuntu OpenCV 3.1
+
 Change directory to this repo
-unzip then
-Compile
+
+unzip then compile this repo
+
+`$ cd Reinforcement-machine-learning-policy-gradient-from-pixels-C-OpenCV-master`
 
 `$ make`
 
