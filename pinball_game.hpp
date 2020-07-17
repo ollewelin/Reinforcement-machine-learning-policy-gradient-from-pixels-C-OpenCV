@@ -15,6 +15,7 @@
 #include <math.h>  // exp
 #include <stdlib.h>// exit(0);
 #include <iostream>
+#include <opencv2/core/types_c.h>
 using namespace std;
 using namespace cv;
 
@@ -264,6 +265,9 @@ void pinball_game::set_user_settings(void)
 
 void pinball_game::init_game(void)
 {
+    //print opencv version
+    printf("opencv version: %d.%d.%d\n",CV_VERSION_MAJOR,CV_VERSION_MINOR,CV_VERSION_REVISION);
+
     replay_count=0;
     use_character=0;
     enable_ball_swan=0;///default yes swan
@@ -518,8 +522,8 @@ void pinball_game::run_episode(void)
         ///ball_ang_char *= 10;
         *It = ball_ang_char+48;
 ///        cv::putText(gameGrapics, angle, cvPoint((5+episode_char/20),(175+(char) (rand() % 16))), CV_FONT_HERSHEY_PLAIN, 2, cvScalar(55),2);
-        cv::putText(gameGrapics, angle, cvPoint((5),(175)), CV_FONT_HERSHEY_PLAIN, 4, cvScalar(0.5),3);
-
+        //cv::putText(gameGrapics, angle, cvPoint((5),(175)), CV_FONT_HERSHEY_PLAIN, 4, cvScalar(0.5),3);// CV_... for Opencv3.1
+        cv::putText(gameGrapics, angle, cvPoint((5),(175)), FONT_HERSHEY_PLAIN, 4, cvScalar(0.5),3);// CV_FONT_HERSHEY_PLAIN dont work in opencv4
         ///  char rand_char = rand() % 255;
         string random = "x";
         std::string::iterator It2 = random.begin();
@@ -530,7 +534,8 @@ void pinball_game::run_episode(void)
         }
 
         *It2 = episode_char ;///Episode is only use to ensure no pattern in randomizer
-        cv::putText(gameGrapics, random, cvPoint((3+episode_char/20),(35+((char) (rand() % 16)))), CV_FONT_HERSHEY_PLAIN, 2, cvScalar(0.5),2);
+        //cv::putText(gameGrapics, random, cvPoint((3+episode_char/20),(35+((char) (rand() % 16)))), CV_FONT_HERSHEY_PLAIN, 2, cvScalar(0.5),2);// CV_... for Opencv3.1
+        cv::putText(gameGrapics, random, cvPoint((3+episode_char/20),(35+((char) (rand() % 16)))), FONT_HERSHEY_PLAIN, 2, cvScalar(0.5),2);
     }
 
     imshow("Game", gameGrapics);
