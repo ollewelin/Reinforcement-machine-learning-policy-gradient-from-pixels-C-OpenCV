@@ -5,7 +5,7 @@ Tested on Linux Ubuntu OpenCV 3.1
 
 ====== Update 2020-07-17! ============
 
-Note Updated and tested with OpenCV 4.2.0
+Note Updated and tested with OpenCV 4.3.0
 OpenCV installation process changed
 Changed makefile
 
@@ -68,7 +68,7 @@ Oboslete only for OpenCV 3.1
 
 `/build$ sudo cmake ..` 
 
-Update for OpenCV 4.2.0
+Update for OpenCV 4.3.0
 
 `/build$ sudo cmake -D OPENCV_GENERATE_PKGCONFIG=ON ..` 
 
