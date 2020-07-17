@@ -3,7 +3,7 @@ Pong game catch circles but avoid rectangles
 first version 
 Tested on Linux Ubuntu OpenCV 3.1 
 
-====== Update 2020-07-17! ============
+====== Update 2020-07-17 ============
 
 Note Updated and tested with OpenCV 4.3.0
 OpenCV installation process changed
@@ -25,7 +25,7 @@ prefix reference
 
 in source pinball_game.hpp files.
 
-====== 2020-07-17! ====================
+=====================================
 
 Youtube demo at:
 https://www.youtube.com/watch?v=fO5CFOeZen8&t=43s
