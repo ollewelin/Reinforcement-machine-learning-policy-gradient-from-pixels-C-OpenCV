@@ -4,6 +4,7 @@ first version
 Tested on Linux Ubuntu OpenCV 3.1 
 
 ====== Update 2020-07-17! ============
+
 Note Updated and tested with OpenCV 4.2.0
 OpenCV installation process changed
 Changed makefile
@@ -19,6 +20,7 @@ prefix reference
 `CV_FONT_HERSHEY_PLAIN`
 
 in source files.
+
 ====== 2020-07-17! ====================
 
 Youtube demo at:
