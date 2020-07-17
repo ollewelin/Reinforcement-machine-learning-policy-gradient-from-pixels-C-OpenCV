@@ -7,8 +7,11 @@ Tested on Linux Ubuntu OpenCV 3.1
 Note Updated and tested with OpenCV 4.2.0
 OpenCV installation process changed
 Changed makefile
-`OPENCV = ``pkg-config --cflags --libs opencv4`
+
+`OPENCV = pkg-config --cflags --libs opencv4`
+
 Remove 
+
 `CV_`
 
 prefix reference 
