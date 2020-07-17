@@ -48,6 +48,13 @@ public:
     float max_rewards;
     int enabel_3_state;///1= then enable 3 actions UP, DOWN, STOP
     int advanced_game;///0= only a ball. 1= ball give awards. square gives punish
+
+    bool use_unfair_dice;
+    int rand_nr_of_frames_change_unfair_dice;
+    int change_unfair_dice_frame_cnt;
+    float random_unfair_dice_bias;//Change every time counter change_unfair_dice_frame_cnt cleared
+    float random_unfair_dice_gain;//
+
     ///=== End user settings ========
     int game_Width;///Pixel width of game grapics. A constant value set in init_game
     int game_Height;///Pixel height of game grapics. A constant value set in init_game
@@ -245,9 +252,27 @@ void pinball_game::set_user_settings(void)
         enabel_3_state =0;
     }
     getchar();
+
+    printf("Do you want to enable unfair dice <Y>/<N> \n");
+    printf("Example use <Y>\n");
+    answer_character = getchar();
+    if(answer_character == 'Y' || answer_character == 'y')
+    {
+        use_unfair_dice =1;
+        printf("Enter (float) random_unfair_dice_gain (default was =%f)\n", random_unfair_dice_gain);
+        scanf("%f", &random_unfair_dice_gain);
+    }
+    else
+    {
+        use_unfair_dice =0;
+    }
+    getchar();
+
     printf("********* You have enter this settings ***********\n");
     printf("pix2hid_learning_rate =%f \n", pix2hid_learning_rate);
     printf("hid2out_learning_rate =%f \n", hid2out_learning_rate);
+    printf("use_unfair_dice =%d \n", use_unfair_dice);
+    printf("random_unfair_dice_gain =%f \n", random_unfair_dice_gain);
     printf("max_rewards =%f \n", max_rewards);
     printf("Not_dropout =%d \n", Not_dropout);
     printf("drop_out_percent =%d \n", drop_out_percent);
@@ -283,6 +308,12 @@ void pinball_game::init_game(void)
     gameGrapics = Scalar(0.0f);///Init with Black
     srand (static_cast <unsigned> (time(0)));///Seed the randomizer
     ball_angle_derivate = (float) (rand() % 65535) / 65536;///Set ball (here only first time) shoot angle. Random value 0..1.0 range
+    use_unfair_dice = true;
+    rand_nr_of_frames_change_unfair_dice = nr_of_frames / 2;
+    change_unfair_dice_frame_cnt = 0;
+    random_unfair_dice_bias = 0.0f;//Change every time counter change_unfair_dice_frame_cnt cleared
+    random_unfair_dice_gain = 0.6f;//
+
 }
 
 void pinball_game::start_episode(void)

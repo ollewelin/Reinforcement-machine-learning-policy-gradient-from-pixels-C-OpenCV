@@ -104,7 +104,7 @@ void randomize_dropoutHid(int *zero_ptr_dropoutHidden, int HiddenNodes, int veri
 }
 
 
-#define check_win_prob_ittr 100
+#define check_win_prob_ittr 1000
 
 int main()
 {
@@ -165,6 +165,13 @@ float random_f;
     best_actions = new float[gameObj1.nr_of_frames];
     int *dropoutHidden;///dropout table
     dropoutHidden = new int[gameObj1.nr_of_frames * Nr_of_hidden_nodes];///data 0 normal fc_hidden_node. 1= dropout this fc_hidden_node this training turn.
+    
+    //=== New 2020-07-17 test to add a bias to action dice to make the network to expolre more sitations
+   // gameObj1.use_unfair_dice = true;
+   // gameObj1.rand_nr_of_frames_change_unfair_dice = nr_of_frames / 2;
+   // gameObj1.change_unfair_dice_frame_cnt = 0;
+   // gameObj1.random_unfair_dice_bias = 0.0f;//Change every time counter change_unfair_dice_frame_cnt cleared
+   // gameObj1.random_unfair_dice_gain = 1.3f;//
 
     ///Some reports to user
     printf("Number of hidden nodes to one frames = %d\n", Nr_of_hidden_nodes);
@@ -398,11 +405,6 @@ int win_lose_cnt = 0;
             output_node[frame_g] = 1.0/(1.0 + exp(-(output_node[frame_g])));///Sigmoid function.  x = 1.0/(1.0 + exp(-(x)))
             ///=============== End Forward data for this frame ==================
 
-
-
-
-
-
             imshow("resized_grapics", resized_grapics);///  resize(src, dst, size);
             if(gameObj1.use_image_diff==1)
             {
@@ -420,6 +422,39 @@ int win_lose_cnt = 0;
             else
             {
                 action_dice = 0.5f;///Old test mode
+            }
+            if(gameObj1.use_unfair_dice == true)
+            {
+                if(frame_g == 0)
+                {
+                    //First randomazie how offen the unfair dice will change unfair bias this eposode
+                    gameObj1.rand_nr_of_frames_change_unfair_dice = (int) (((float) (rand() % 65535) / 65536) * (float) gameObj1.nr_of_frames);
+                    gameObj1.change_unfair_dice_frame_cnt = 0;
+                    //printf("rand_nr_of_frames_change_unfair_dice = %d\n", gameObj1.rand_nr_of_frames_change_unfair_dice);
+                }
+
+                if(gameObj1.change_unfair_dice_frame_cnt < gameObj1.rand_nr_of_frames_change_unfair_dice){
+                    gameObj1.change_unfair_dice_frame_cnt++;}
+                else{
+
+                    gameObj1.change_unfair_dice_frame_cnt = 0;
+                }
+                if(gameObj1.change_unfair_dice_frame_cnt == 0){
+                    //Change unfair dice bias
+                    float half_unfair_gain = gameObj1.random_unfair_dice_gain * 0.5f;
+                    gameObj1.random_unfair_dice_bias = ((float) (rand() % 65535) / 65536) * gameObj1.random_unfair_dice_gain;
+                    gameObj1.random_unfair_dice_bias = gameObj1.random_unfair_dice_bias - half_unfair_gain;
+                  //  printf("gameObj1.random_unfair_dice_bias =%f\n", gameObj1.random_unfair_dice_bias);
+                }
+                action_dice = action_dice + gameObj1.random_unfair_dice_bias;
+                //Truncate dice between 0..1
+                if(action_dice > 1.0f){
+                    action_dice = 1.0f;
+                }
+                if(action_dice < 0.0f){
+                    action_dice = 0.0f;
+                }
+                //printf("action_dice =%f\n", action_dice);
             }
             if(gameObj1.enabel_3_state ==1)
             {
@@ -562,7 +597,7 @@ int win_lose_cnt = 0;
             show_w_counter++;
         }
         ///========== End Show visualization of the weights =================
-        printf("nr_of_episodes =%d\n", nr_of_episodes);
+        printf("nr_of_episodes = %d\n", nr_of_episodes);
         gameObj1.episode = nr_of_episodes;
         nr_of_episodes++;
         float rewards =0.0f;
@@ -625,7 +660,7 @@ int win_lose_cnt = 0;
             }
         }
 
-        if(win_lose_cnt < check_win_prob_ittr)
+        if(win_lose_cnt < check_win_prob_ittr-1)
         {
             win_lose_cnt++;
             win_lose_sum = win_lose_sum + win_flt_temp;
@@ -636,8 +671,8 @@ int win_lose_cnt = 0;
             win_lose_sum = 0.0f;
             win_lose_cnt=0;
         }
-        printf("Win probablity = %f\n", win_probability);
-        printf("win/lose ittr cnt = %d\n", win_lose_cnt);
+        printf("Win probablity = %f (update after each %d episodes)\n", win_probability, check_win_prob_ittr);
+        //printf("win/lose ittr cnt = %d\n", win_lose_cnt);
         if(gameObj1.advanced_game == 1)
         {
             ///Flip rewards if it was a square rather then a ball
