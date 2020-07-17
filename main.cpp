@@ -103,6 +103,9 @@ void randomize_dropoutHid(int *zero_ptr_dropoutHidden, int HiddenNodes, int veri
     }
 }
 
+
+#define check_win_prob_ittr 100
+
 int main()
 {
 float random_f;
@@ -309,6 +312,12 @@ printf("threshold_2 %f\n", threshold_2);
 float rev_out_node;
 float rev_rand_dice;
 float action_dice;
+
+
+float win_probability = 0.0f;
+float win_lose_sum = 0.0f;
+int win_lose_array[check_win_prob_ittr];
+int win_lose_cnt = 0;
 
     while(1)
     {
@@ -562,8 +571,10 @@ float action_dice;
         int ball_pad_diff = 0;/// Only used in high_precition_mode, Propotion reward mode
         ball_pad_diff = gameObj1.pad_ball_diff;
         ball_pad_diff = int_abs_value(ball_pad_diff);///remove sign only positive
+        float win_flt_temp = 0.0f;
         if(gameObj1.win_this_game == 1)
         {
+            win_flt_temp = 1.0f;
             if(gameObj1.high_precition_mode==0)
             {
                 rewards = +4.0f;///Yea.. the Ageint win this episode
@@ -590,6 +601,7 @@ float action_dice;
         }
         else
         {
+            win_flt_temp = 0.0f;
             if(gameObj1.high_precition_mode==0)
             {
                 rewards = -1.0f;///We lose this episode
@@ -613,6 +625,19 @@ float action_dice;
             }
         }
 
+        if(win_lose_cnt < check_win_prob_ittr)
+        {
+            win_lose_cnt++;
+            win_lose_sum = win_lose_sum + win_flt_temp;
+        }
+        else
+        {
+            win_probability = win_lose_sum / check_win_prob_ittr;
+            win_lose_sum = 0.0f;
+            win_lose_cnt=0;
+        }
+        printf("Win probablity = %f\n", win_probability);
+        printf("win/lose ittr cnt = %d\n", win_lose_cnt);
         if(gameObj1.advanced_game == 1)
         {
             ///Flip rewards if it was a square rather then a ball
