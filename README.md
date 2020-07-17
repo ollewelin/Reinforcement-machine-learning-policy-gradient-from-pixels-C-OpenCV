@@ -11,6 +11,10 @@ Changed makefile
 
 `OPENCV = pkg-config --cflags --libs opencv4`
 
+Add 
+
+`#include <opencv2/core/types_c.h>`
+
 Remove 
 
 `CV_`
@@ -19,7 +23,7 @@ prefix reference
 
 `CV_FONT_HERSHEY_PLAIN`
 
-in source files.
+in source pinball_game.hpp files.
 
 ====== 2020-07-17! ====================
 
