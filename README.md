@@ -7,6 +7,10 @@ Tested on Linux Ubuntu OpenCV 3.1
 
 Note Updated and tested with OpenCV 4.3.0
 OpenCV installation process changed
+cmake installation change
+
+`/build$ sudo cmake -D OPENCV_GENERATE_PKGCONFIG=ON ..` 
+
 Changed makefile
 
 `OPENCV = pkg-config --cflags --libs opencv4`
