@@ -1,5 +1,22 @@
 # Reinforcement-machine-learning-policy-gradient-from-pixels-C-OpenCV
 Pong game catch circles but avoid rectangles 
+first version 
+Tested on Linux Ubuntu OpenCV 3.1 
+
+====== Update 2020-07-17! ============
+Note Updated and tested with OpenCV 4.2.0
+OpenCV installation process changed
+Changed makefile
+`OPENCV = ``pkg-config --cflags --libs opencv4`
+Remove 
+`CV_`
+
+prefix reference 
+
+`CV_FONT_HERSHEY_PLAIN`
+
+in source files.
+====== 2020-07-17! ====================
 
 Youtube demo at:
 https://www.youtube.com/watch?v=fO5CFOeZen8&t=43s
@@ -38,13 +55,18 @@ change directory to unziped folder
 
 `$ cd build`
 
-`/build$ sudo cmake ..`
+Oboslete only for OpenCV 3.1
+
+`/build$ sudo cmake ..` 
+
+Update for OpenCV 4.2.0
+
+`/build$ sudo cmake -D OPENCV_GENERATE_PKGCONFIG=ON ..` 
 
 `/build$ sudo make`
 
 `/build$ sudo make install`
 
-Tested on Linux Ubuntu OpenCV 3.1
 
 Change directory to this repo
 
