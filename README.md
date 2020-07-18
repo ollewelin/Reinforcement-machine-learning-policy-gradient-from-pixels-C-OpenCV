@@ -111,3 +111,7 @@ on the 3 comming question
 Error while opening file pix2hid_weight.dat
 you maybee foreget extract the pix2hid_weight.dat.tar.gz)
 
+I use the Delta Backpropagation principle in the implementation but in this code only 1 singel Target, the reward target.
+![](Backprop%20img1.png)
+![](Backprop%20img2.png)
+
