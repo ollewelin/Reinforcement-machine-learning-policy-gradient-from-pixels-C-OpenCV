@@ -166,14 +166,9 @@ float random_f;
     int *dropoutHidden;///dropout table
     dropoutHidden = new int[gameObj1.nr_of_frames * Nr_of_hidden_nodes];///data 0 normal fc_hidden_node. 1= dropout this fc_hidden_node this training turn.
     
-    //=== New 2020-07-17 test to add a bias to action dice to make the network to expolre more sitations
-   // gameObj1.use_unfair_dice = true;
-   // gameObj1.rand_nr_of_frames_change_unfair_dice = nr_of_frames / 2;
-   // gameObj1.change_unfair_dice_frame_cnt = 0;
-   // gameObj1.random_unfair_dice_bias = 0.0f;//Change every time counter change_unfair_dice_frame_cnt cleared
-   // gameObj1.random_unfair_dice_gain = 1.3f;//
 
     ///Some reports to user
+    printf("use_unfair_dice = %d\n", gameObj1.use_unfair_dice);
     printf("Number of hidden nodes to one frames = %d\n", Nr_of_hidden_nodes);
     printf("Total number of hidden nodes fo all frames together = %d\n", gameObj1.nr_of_frames * Nr_of_hidden_nodes);
     printf("Number of output nodes alway equal to the number of frames on one episode = %d\n", gameObj1.nr_of_frames);

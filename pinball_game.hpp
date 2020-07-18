@@ -308,7 +308,7 @@ void pinball_game::init_game(void)
     gameGrapics = Scalar(0.0f);///Init with Black
     srand (static_cast <unsigned> (time(0)));///Seed the randomizer
     ball_angle_derivate = (float) (rand() % 65535) / 65536;///Set ball (here only first time) shoot angle. Random value 0..1.0 range
-    use_unfair_dice = true;
+    use_unfair_dice = 0;
     rand_nr_of_frames_change_unfair_dice = nr_of_frames / 2;
     change_unfair_dice_frame_cnt = 0;
     random_unfair_dice_bias = 0.0f;//Change every time counter change_unfair_dice_frame_cnt cleared
