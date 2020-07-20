@@ -603,8 +603,7 @@ int win_lose_cnt = 0;
         ball_pad_diff = int_abs_value(ball_pad_diff);///remove sign only positive
         float win_flt_temp = 0.0f;
         if(gameObj1.win_this_game == 1)
-        {
-            win_flt_temp = 1.0f;
+        {            
             if(gameObj1.high_precition_mode==0)
             {
                 rewards = +4.0f;///Yea.. the Ageint win this episode
@@ -630,8 +629,7 @@ int win_lose_cnt = 0;
             }
         }
         else
-        {
-            win_flt_temp = 0.0f;
+        {            
             if(gameObj1.high_precition_mode==0)
             {
                 rewards = -1.0f;///We lose this episode
@@ -654,6 +652,18 @@ int win_lose_cnt = 0;
                 }
             }
         }
+        if(gameObj1.advanced_game == 1)
+        {
+            ///Flip rewards if it was a square rather then a ball
+            ///Hit a square give punish and ball catch give rewards
+            if(gameObj1.square == 1)
+            {
+                rewards = -rewards;///Stay away from squares
+            }
+        }
+        
+        if(rewards > 0.0f){ win_flt_temp = 1.0f; }
+        else{ win_flt_temp = 0.0f; }
 
         if(win_lose_cnt < check_win_prob_ittr-1)
         {
@@ -666,17 +676,15 @@ int win_lose_cnt = 0;
             win_lose_sum = 0.0f;
             win_lose_cnt=0;
         }
-        printf("Win probablity = %f (update after each %d episodes)\n", win_probability, check_win_prob_ittr);
-        //printf("win/lose ittr cnt = %d\n", win_lose_cnt);
-        if(gameObj1.advanced_game == 1)
-        {
-            ///Flip rewards if it was a square rather then a ball
-            ///Hit a square give punish and ball catch give rewards
-            if(gameObj1.square == 1)
-            {
-                rewards = -rewards;///Stay away from squares
+        if(nr_of_episodes > check_win_prob_ittr-1){
+            printf("Win probablity = %f (update after each %d episodes)\n", win_probability, check_win_prob_ittr);
             }
-        }
+        else{
+            if(win_lose_cnt>0){win_probability = win_lose_sum / win_lose_cnt;}
+            else{win_probability = 0.0f;}
+            printf("Win probablity = %f (update now)\n", win_probability);
+            }
+        //printf("win/lose ittr cnt = %d\n", win_lose_cnt);
 
         if(gameObj1.flip_reward_sign == 1)
         {
