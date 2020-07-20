@@ -1,6 +1,6 @@
 # Reinforcement-machine-learning-policy-gradient-from-pixels-C-OpenCV
 Pong game catch circles but avoid rectangles 
-first version 
+Now 
 Tested on Linux Ubuntu OpenCV 4.3.0
 
 ![](game_in_action_ball.png)
