@@ -2,7 +2,9 @@
 Pong game catch circles but avoid rectangles 
 first version 
 Tested on Linux Ubuntu OpenCV 4.3.0
-![](game_in_action.png)
+
+![](game_in_action_ball.png)
+![](game_with_rectangle.png)
 
 ====== Update 2020-07-17 ============
 
