@@ -96,6 +96,14 @@ Run
 
 `$ ./exe_main`
 
+Or use cmake CMakeFiles.txt
+
+`$ sudo cmake CMakeLists.txt`
+
+`$ sudo make`
+
+`$ ./pong`
+
 If you want to test my trained weights ~100000 training episodes
 combine the splited 6M files pix2hid_weight.parta* with this command
 
