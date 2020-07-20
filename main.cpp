@@ -676,14 +676,13 @@ int win_lose_cnt = 0;
             win_lose_sum = 0.0f;
             win_lose_cnt=0;
         }
-        if(nr_of_episodes > check_win_prob_ittr-1){
-            printf("Win probablity = %f (update after each %d episodes)\n", win_probability, check_win_prob_ittr);
-            }
-        else{
-            if(win_lose_cnt>0){win_probability = win_lose_sum / win_lose_cnt;}
-            else{win_probability = 0.0f;}
-            printf("Win probablity = %f (update now)\n", win_probability);
-            }
+   //     if(nr_of_episodes > check_win_prob_ittr-1){
+   //         printf("Win probablity = %f (update after each %d episodes)\n", win_probability, check_win_prob_ittr);
+   //         }
+   //     else{
+        if(win_lose_cnt>0){win_probability = win_lose_sum / win_lose_cnt;}
+        printf("Win probablity = %f (ittr cnt = %d)\n", win_probability, win_lose_cnt);
+   //         }
         //printf("win/lose ittr cnt = %d\n", win_lose_cnt);
 
         if(gameObj1.flip_reward_sign == 1)

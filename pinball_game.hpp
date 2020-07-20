@@ -182,7 +182,7 @@ void pinball_game::set_user_settings(void)
     getchar();
 
     printf("Do you want advanced game ball give awards square give punish  <Y>/<N> \n");
-    printf("Example use <N>\n");
+    printf("Example use <Y>\n");
     answer_character = getchar();
     if(answer_character == 'Y' || answer_character == 'y')
     {
@@ -254,7 +254,7 @@ void pinball_game::set_user_settings(void)
     getchar();
 
     printf("Do you want to enable unfair dice <Y>/<N> \n");
-    printf("Example use <Y>\n");
+    printf("Example use <N>\n");
     answer_character = getchar();
     if(answer_character == 'Y' || answer_character == 'y')
     {
