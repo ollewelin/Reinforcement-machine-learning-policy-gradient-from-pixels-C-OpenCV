@@ -362,9 +362,9 @@ void pinball_game::start_episode(void)
 
 void pinball_game::run_episode(void)
 {
-    int circle_size = 5;
-    int rect_size = 10;
-    int rect_x_expand = 2;///Expand rectangle x direction
+    int circle_size = 4;
+    int rect_size = 14;
+    int rect_x_expand = 15;///Expand rectangle x direction
     int ball_start_x = 10;///Start 10 pixel inside game plan
     int y_bounce_constraints = 20;
     int y_pad_constraints = 28;
