@@ -121,9 +121,3 @@ on the 3 comming question
 (if you get 
 Error while opening file pix2hid_weight.dat
 you maybee foreget extract the pix2hid_weight.dat.tar.gz)
-
-Backpropagation with Delta (only one output node not 3 output as scetch):
-
-![](Backprop_Delta_1.png)
-![](Backprop_Delta_2.png)
-
