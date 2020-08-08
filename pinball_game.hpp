@@ -87,7 +87,6 @@ private:
 
 };
 
-
 void pinball_game::set_user_settings(void)
 {
     char answer_character;
@@ -516,30 +515,19 @@ void pinball_game::run_episode(void)
         ///Is the pad catch the ball ??
         if(((pad_position + (pad_height/2)) < ball_pos_y) || ((pad_position - (pad_height/2)) >  ball_pos_y))
         {
-            ///Miss
-            if(square == 1){
-            win_this_game = 1;
-            printf("Win \n");
-            }
-            else{
-               win_this_game = 0;
-                printf("Lose \n");
-            }
+            ///Lose
+            win_this_game = 0;
+            printf("Lose \n");
         }
         else
         {
-            ///Catch
-            if(square == 1){
-               win_this_game = 0;
-                printf("Lose \n");
-             }
-             else
-             {
-                win_this_game = 1;
-                printf("Win \n");
-            }
+            ///Win catced
+            win_this_game = 1;
+            printf("Win \n");
         }
+
         pad_ball_diff = pad_position - ball_pos_y;
+
     }
 
     if(use_character==1)
