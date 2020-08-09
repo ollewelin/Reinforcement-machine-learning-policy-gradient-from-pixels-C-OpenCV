@@ -652,15 +652,6 @@ int win_lose_cnt = 0;
                 }
             }
         }
-        if(gameObj1.advanced_game == 1)
-        {
-            ///Flip rewards if it was a square rather then a ball
-            ///Hit a square give punish and ball catch give rewards
-            if(gameObj1.square == 1)
-            {
-                rewards = -rewards;///Stay away from squares
-            }
-        }
         
         if(rewards > 0.0f){ win_flt_temp = 1.0f; }
         else{ win_flt_temp = 0.0f; }
