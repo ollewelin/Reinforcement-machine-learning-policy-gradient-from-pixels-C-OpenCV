@@ -14,6 +14,7 @@
 #include <stdio.h>
 ///#include <raspicam/raspicam_cv.h> //Only for raspberry pi
 #include <opencv2/opencv.hpp>
+#include <opencv2/core.hpp>
 #include <opencv2/core/core.hpp>        // Basic OpenCV structures (cv::Mat, Scalar)
 #include <cstdlib>///rand() srand()
 #include <ctime>
@@ -27,6 +28,81 @@ using namespace cv;
 
 #include <omp.h>///Use of Multi thread add -fopenmp at C::B : Settings->Compiler..->Compiler Options->Other Options and at: Settings->Compiler..Linker Settings->Other Linker Options
 ///#define MULTI_THRED_4X
+
+#include <unistd.h>
+void clearScreen()
+{
+    const char *CLEAR_SCREEN_ANSI = "\e[1;1H\e[2J";
+    write(STDOUT_FILENO, CLEAR_SCREEN_ANSI, 12);
+}
+
+#include <random>
+double dice_mean = 0.5;
+double dice_stddev = 1.3;
+double dice_stddev_start = 1.3;
+double dice_stddev_decrease = 0.03;
+double dice_minimum_stddev = 0.20;
+int dice_dec_stddev_after_nr_episodes = 100;
+
+
+double gaussian_dice(int number_of_examples, int example_nr, bool print_examples)
+{
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator(seed);
+    // std::default_random_engine generator;
+    std::normal_distribution<double> distribution(dice_mean, dice_stddev);
+    double number = 0.0;
+    if (print_examples == false)
+    {
+        int nr_of_try = 100;//If never inside 0.0..1.0 during this number of trys skip this round and give value 0.5
+        for(int i=0;i<nr_of_try;i++){
+            number = distribution(generator);//run the guassian dice
+            if(number>=0.0 && number<=1.0){
+                break;//The gaussian dice is inside range. Return this number
+            }
+            else{
+                if(i==nr_of_try-1){
+                    number = 0.5;//Give up and return 0.5 if nr_of_try ends;
+                    printf("Give up gaussion dice after %d try, outside range 0.0..1.0 return default value = %f\n", i, (float)number);
+                }
+            }
+        }
+    }
+    else
+    {
+        printf("%d examples of a gaussian dice this will be used as an unfair dice\n", number_of_examples);
+        printf("Example number %d\n", example_nr+1);
+        const int nrolls = 1000; // number of experiments
+        const int nstars = 300;  // maximum number of stars to distribute
+
+        const int stars_array_size = 10;
+        float p[stars_array_size] = {};
+        for (int i = 0; i < stars_array_size; ++i)
+        {
+            p[i] = 0.0;
+        }
+        for (int i = 0; i < nrolls; ++i)
+        {
+            number = distribution(generator);
+            int numberXarrSize = int(number * stars_array_size);
+            if ((number >= 0.0) && (number < 1.0))
+                ++p[numberXarrSize];
+            double numberTimeArraySize = numberTimeArraySize * (double)stars_array_size;
+        }
+        printf("Dice gaussian distribution (0.0,1.0):\n");
+        for (int i = 0; i < stars_array_size; ++i)
+        {
+
+            float one_tenth = ((float)i) / stars_array_size;
+            printf("%1.1f", one_tenth);
+            printf("..");
+            printf("%1.1f", (one_tenth + (1.0 / (double)stars_array_size)));
+            printf(": ");
+            std::cout << std::string(p[i] * nstars / nrolls, '*') << std::endl;
+        }
+    }
+    return number;
+}
 
 const float Relu_neg_gain = 0.01f;///A small positive value here will prevent ReLU neuoron from dying. 0.0f pure rectify (1.0 full linear = nothing change)
 float relu(float input)
@@ -105,10 +181,44 @@ void randomize_dropoutHid(int *zero_ptr_dropoutHidden, int HiddenNodes, int veri
 
 
 #define check_win_prob_ittr 1000
-
+void printGaussianDiceSettings(void)
+{
+    printf("**************** Gaussian dice settings: ******************\n");
+    printf("mean,               dice_mean =   %f\n", dice_mean);
+    printf("standard deviation, dice_stddev = %f\n", dice_stddev);
+    printf("***********************************************************\n");
+}
 int main()
 {
-float random_f;
+    int nrOfExamples = 45;
+    for(int i=0;i<nrOfExamples;i++)
+    {
+        clearScreen();
+        printf("\n");
+        printf("\n");
+        printf("i=%d\n",i);
+        dice_stddev -= dice_stddev_decrease;
+        if (dice_stddev < dice_minimum_stddev)
+        {
+            dice_stddev = dice_minimum_stddev;
+        }
+        printGaussianDiceSettings();
+        gaussian_dice(nrOfExamples, i, true);
+        waitKey(500);
+    }
+
+    for(int i=0;i<nrOfExamples;i++)
+    {
+        double testDice = gaussian_dice(nrOfExamples, i, false);
+        printf("Test gaussian dice = %f\n", (float)testDice);
+        waitKey(100);
+    }
+
+    dice_stddev = dice_stddev_start; 
+    printGaussianDiceSettings();
+    gaussian_dice(1, 0, true);
+
+    float random_f;
     char filename[100];
     char answer_character;
     printf("Reinforcment Learning test of pixels data input from a simple ping/pong game\n");
@@ -323,6 +433,7 @@ int win_lose_cnt = 0;
 
     while(1)
     {
+        
         gameObj1.replay_episode = 0;
         float dot_product = 0.0f;
         gameObj1.start_episode();///Staring a new game turn
@@ -407,6 +518,7 @@ int win_lose_cnt = 0;
             }
             waitKey(1);
 
+
             ///=============== Made the action =======
             ///Update 2017-09-02 9:30 ===== Use dice with the policy network output probability for what action should be done
             ///float action_dice;
@@ -420,6 +532,7 @@ int win_lose_cnt = 0;
             }
             if(gameObj1.use_unfair_dice == true)
             {
+/*
                 if(frame_g == 0)
                 {
                     //First randomazie how offen the unfair dice will change unfair bias this eposode
@@ -449,45 +562,16 @@ int win_lose_cnt = 0;
                 if(action_dice < 0.0f){
                     action_dice = 0.0f;
                 }
+*/
+                action_dice = (float)gaussian_dice(0,0,false);
                 //printf("action_dice =%f\n", action_dice);
+
+
             }
             if(gameObj1.enabel_3_state ==1)
             {
-                //float threshold = 0;
-                //float revers_sigmoid;
-                //revers_sigmoid = ;
-                ///y = 1/(1+exp(-x)) ///Sigmoid
-                ///x = -log((1-y)/y) ///Sigmoid revers log = ln
-                /// 3 state mode UP, DOWN, STOP
-                ///Obscure solution. Maybe it work. I simpy not know realy what I am doing in this example..
-                rev_out_node = revers_sigmoid(output_node[frame_g]);
-                rev_rand_dice = revers_sigmoid(action_dice);
-                action_dice = 1.0/(1.0 + exp(-(rev_rand_dice+rev_out_node)));///Sigmoid function.  x = 1.0/(1.0 + exp(-(x)))
-                if(action_dice > threshold_2)
-                {
-                    action[frame_g] = 1.0f;
-                    gameObj1.move_up = 1;
-                }
-                else if(action_dice < threshold_1)
-                {
-                    action[frame_g] = 0.0f;
-                    gameObj1.move_up = 0;
-                }
-                else
-                {
-                    ///action[frame_g] = 0.5f;///STOP target
-                    action[frame_g] = 0.5;
-                    gameObj1.move_up = 2;///STOP
-                }
-                if(frame_g >95)
-                {
-                    printf("frameg =%d\n", frame_g);
-                    printf("action_dice %f\n", action_dice);
-                    printf("output_node[frame_g] %f\n", output_node[frame_g]);
-                    printf("abs(output_node[frame_g] - 0.5f) = %f\n", abs(output_node[frame_g] - 0.5f));
-                    printf("abs(action_dice - 0.5f) =%f\n", abs(action_dice - 0.5f));
-                    printf("action[frame_g] =%f\n", action[frame_g]);
-                }
+                printf("3 state mode removed exit program\n");
+                exit(0);
             }
             else
             {
@@ -593,6 +677,17 @@ int win_lose_cnt = 0;
         }
         ///========== End Show visualization of the weights =================
         printf("nr_of_episodes = %d\n", nr_of_episodes);
+        if((nr_of_episodes% dice_dec_stddev_after_nr_episodes) == 0)
+        {
+            dice_stddev -= dice_stddev_decrease;
+            if (dice_stddev < dice_minimum_stddev)
+            {
+                dice_stddev = dice_minimum_stddev;
+            }
+            gaussian_dice(1,0,true);
+            printGaussianDiceSettings();
+            
+        }
         gameObj1.episode = nr_of_episodes;
         nr_of_episodes++;
         float rewards =0.0f;
@@ -667,14 +762,8 @@ int win_lose_cnt = 0;
             win_lose_sum = 0.0f;
             win_lose_cnt=0;
         }
-   //     if(nr_of_episodes > check_win_prob_ittr-1){
-   //         printf("Win probablity = %f (update after each %d episodes)\n", win_probability, check_win_prob_ittr);
-   //         }
-   //     else{
         if(win_lose_cnt>0){win_probability = win_lose_sum / win_lose_cnt;}
         printf("Win probablity = %f (ittr cnt = %d)\n", win_probability, win_lose_cnt);
-   //         }
-        //printf("win/lose ittr cnt = %d\n", win_lose_cnt);
 
         if(gameObj1.flip_reward_sign == 1)
         {
