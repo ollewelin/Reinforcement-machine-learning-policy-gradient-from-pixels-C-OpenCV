@@ -42,7 +42,7 @@ double dice_stddev = 1.3;
 double dice_stddev_start = 1.3;
 double dice_stddev_decrease = 0.03;
 double dice_minimum_stddev = 0.20;
-int dice_dec_stddev_after_nr_episodes = 100;
+int dice_dec_stddev_after_nr_episodes = 1000;
 
 
 double gaussian_dice(int number_of_examples, int example_nr, bool print_examples)
