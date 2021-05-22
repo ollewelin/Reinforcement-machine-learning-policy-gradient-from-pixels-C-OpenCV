@@ -117,7 +117,7 @@ combine the splited 6M files pix2hid_weight.parta* with this command
 
 then extract the file:
 
-     $ unzip pix2hid_weight.dat.tar.gz
+    $ unzip pix2hid_weight.dat.tar.gz
 
 start program and enter 
 N
