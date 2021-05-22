@@ -6,7 +6,7 @@ Tested on Linux Ubuntu OpenCV 4.3.0
 ![](game_in_action_ball.png)
 ![](game_with_rectangle.png)
 
-### Start up example screen shot
+### Start up example screen shot (Gussian dice visualizing)
 
 
 ![](Gussian_dice_1.png)
