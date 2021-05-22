@@ -6,6 +6,12 @@ Tested on Linux Ubuntu OpenCV 4.3.0
 ![](game_in_action_ball.png)
 ![](game_with_rectangle.png)
 
+### Start up example screen shot
+
+
+![](Gussian_dice_1.png)
+![](Gussian_dice_2.png)
+
 ====== Update 2020-07-17 ============
 
 Note Updated and tested with OpenCV 4.3.0
