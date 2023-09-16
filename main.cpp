@@ -910,11 +910,13 @@ int win_lose_cnt = 0;
                     ix = (frame_g * Nr_of_hidden_nodes + i);
 
                     if(dropoutHidden[frame_g * Nr_of_hidden_nodes + i] == 0)
+                    {
                         ///Correct bug 2018-05-03, now correct derivitiv for proper gradient decent at ReLU
                         float derivat_of_node = 0.0f;
                         if(hidden_node[frame_g * Nr_of_hidden_nodes + i] < 0.0f)
                         {
                             derivat_of_node = Relu_neg_gain;///ReLU-, derivate = Relu_neg_gain
+                        }
                         else
                         {
                             derivat_of_node = 1.0;///ReLU+, derivate = 1
